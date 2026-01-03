@@ -1,0 +1,68 @@
+<div class="cart-content"></div>
+<script>
+    async function fetchCart() {
+        const cartRequest = await fetch('/cart.js');
+        const cart = await cartRequest.json();
+
+        // selects the div with the class cart-content
+        const cartContentDiv = document.querySelector('.cart-content');  
+
+        // replaces the text inside the div with the cart's item count 
+        cartContentDiv.textContent = `Cart's total items: ${cart.item_count}`;
+        return cart;
+    }
+    async function changeCart(){
+        const addToCartRequest = await fetch("/cart/change.js", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: 47404215697578,
+                quantity: 2
+            }),
+        });
+        }
+    async function updateCart(quantity){
+        const LINE_ITEM_KEY = '47404215697578:96111ab606997ec6563dccea470fd669';
+
+        const updateCartRequest = await fetch(`/cart/update.js`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                updates:
+                    {
+                        [LINE_ITEM_KEY]: quantity
+                    }
+            }),
+        });
+        window.location.reload();
+    }
+    async function addToCart() {
+        const addToCartRequest = await fetch("/cart/add.js", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: 47404215500970,
+                quantity: 2,
+                properties: {
+                    "test": "test value"
+                }
+            })
+        });
+    }
+</script>
+{% schema %}
+{
+    "name": "AJAX API",
+    "presets": [
+        {
+            "name": "AJAX API"
+        }
+    ]
+}
+{% endschema %}
