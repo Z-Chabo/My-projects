@@ -1,0 +1,16 @@
+/* 
+  Defines the styles for our scroll-triggered animations.
+  'fade-in-section' is the initial state (hidden).
+  'is-visible' is the final state (visible).
+*/
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
